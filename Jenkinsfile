@@ -15,7 +15,7 @@ pipeline {
 		   
 		     steps {
 			    
-				 sh """ docker build -t my-app . """
+				 sh """ docker build -t sainadh463/my-app . """
 				 
 				 }
 		}
@@ -27,7 +27,7 @@ pipeline {
 					
 					sh """
 					      docker login --username $USERNAME --password $PASSWORD
-						  docker push my-app
+						  docker push sainadh463/my-app
 					   """  
 			  }
         } 
