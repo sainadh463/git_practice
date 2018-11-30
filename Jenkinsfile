@@ -1,13 +1,13 @@
 pipeline {
     agent any 
 	stages {
-	    stage('Example Build') {
 		   
+	    stage('Example Build') {
 		     steps {
 			    
 				 sh """
-                                    export PATH=$PATH:/goroot/bin:/gopath/bin
-                                    go build main.go"""
+				 export PATH=$PATH:/goroot/bin:/gopath/bin
+				 go build main.go"""
 				 
 				 }
 		}
@@ -19,6 +19,17 @@ pipeline {
 				 
 				 }
 		}
-		
+		stage('Push to DIR'){
+
+              steps{
+			  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sainadh',
+                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+					
+					sh """
+					      docker login --username $USERNAME --password $PASSWORD
+						  docker push my-app
+					   """  
+			  }
+        } 
 	}
-}
+}	
